@@ -31,8 +31,26 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr th:each="titulo : ${titulos}">
+						<td class="text-center" th:text="${titulo.codigo}"></td>
+						<td th:text="${titulo.descricao}"></td>
+						<!-- {{}} Vai formatar a data como definido no Entity @DateTimeFormat(pattern = "dd/MM/yyyy") -->
+						<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+						<!-- {{}} vai formatar o valor como definido no Entity @NumberFormat(pattern = "#,##0.00") --> 
+						<td class="text-right" th:text="|R$ ${{titulo.valor}}"|></td>
+						
+						<td class="text-center">
+	   						<span class="label" th:text="${titulo.status.descricao}"
+	   							th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
+	   					</td>
+						
+						<td class="text-center"></td>
+					
+					</tr>
+					
+					
 					<tr>
-						<td colspan="6">Nenhum título encontrado</td>
+						<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum título encontrado</td>
 					</tr>
 				</tbody>
 			
